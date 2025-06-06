@@ -4,6 +4,12 @@ A headless, networked audio server written in Rust that uses GStreamer to stream
 
 ---
 
+## Dependencies
+- Rust / Cargo
+- GStreamer
+
+---
+
 ## Current Capabilities
 
 - One-way audio streaming from one device to another
