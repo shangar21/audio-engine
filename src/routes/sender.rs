@@ -36,7 +36,7 @@ pub async fn send(
 ) -> Json<SendResponse> {
     let session_id = Uuid::new_v4().to_string();
     let command = format!(
-        "gst-launch-1.0 {} device={} ! audio/x-raw.format=S16LE,channels=2,rate=44100 ! audioconvert ! rtpL16pay ! \"application/x-rtp,media=audio,encoding-name=L16,clock-rate=44100,payload=96\" ! udpsink host={} port={}",
+        "gst-launch-1.0 {} device={} ! audioconvert ! rtpL16pay ! \"application/x-rtp,media=audio,encoding-name=L16,clock-rate=44100,payload=96\" ! udpsink host={} port={}",
         payload.source, payload.device, payload.host, payload.port
     );
 
