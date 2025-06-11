@@ -41,3 +41,27 @@ cargo run
 - [ ] play audio remote (files, streams, etc.)
 - [ ] mic broadcast / sending
 - [ ] spotify
+
+## How to use
+
+There are 4 end points:
+
+- `send` which takes as input the source (pulsesrc for example), device (can be found with `pactl list sources short`) a host to send audio to and a port. Returns a success message and `session_id` which is needed to terminate the pipe if needed.
+    - request body example: `{"source":"pulsesrc","device":"alsa_output.pci-0000_00_1f.3.analog-stereo.monitor","host":"192.168.1.69","port":"5004"}`
+    - return example: `{"host":"192.168.1.69","port":"5004","status":"success","session_id":"e6ad85f3-391f-4d60-b883-7172324deab5"}`
+- `receive` which takes as input just the port (the same as the one used on a send request). Returns a success message and `session_id` which is needed to terminate the pipe if needed.
+    - request body example: `{"port":"5004"}`
+    - return example: `{"status":"success","session_id":"149bcfbe-cdf0-41b8-afc6-86704d04d1da"}`
+- `stop_send` which takes as input the session id, and then terminates the send session. Returns a success message if ok.
+    - request body example: `{"session_id":"e6ad85f3-391f-4d60-b883-7172324deab5"}`
+    - return example: `{"status":"success","session_id":null"}`
+- `stop_receive` which takes as input the session id, and then terminates the send session. Returns a success message if ok.
+    - request body example: `{"session_id":"149bcfbe-cdf0-41b8-afc6-86704d04d1da"}`
+    - return example: `{"status":"success","session_id":null"}`
+
+If running an intance, can use `curl` to send requests, for example:
+
+```bash
+curl -H 'Content-Type: application/json' -d '{"port":"5004"}' -X POST 127.0.0.1:3000/receive
+curl -H 'Content-Type: application/json' -d '{"source":"pulsesrc","device":"alsa_output.pci-0000_00_1f.3.analog-stereo.monitor","host":"192.168.1.69","port":"5004"}' -X POST 127.0.0.1:3000/send
+```
