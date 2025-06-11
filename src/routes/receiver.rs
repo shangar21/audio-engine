@@ -32,7 +32,7 @@ pub async fn receive(
     let session_id = Uuid::new_v4().to_string();
 
     let cmd = format!(
-        "gst-launch-1.0 udpsrc port={} caps=\"application/x-rtp,media=audio,encoding-name=L16,clock-rate=44100,channels=2,payload=96\" \
+        "exec gst-launch-1.0 udpsrc port={} caps=\"application/x-rtp,media=audio,encoding-name=L16,clock-rate=44100,channels=2,payload=96\" \
          ! queue ! rtpL16depay ! audioconvert ! autoaudiosink",
         payload.port
     );
