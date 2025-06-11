@@ -51,8 +51,8 @@ pub fn launch_command(label: &str, command: &str) -> io::Result<Child> {
     Command::new("sh")
         .arg("-c")
         .arg(command)
-        .stdout(Stdio::null())
-        .stderr(Stdio::null())
+        .stdout(Stdio::inherit())
+        .stderr(Stdio::inherit())
         .spawn()
 }
 
