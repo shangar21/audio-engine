@@ -29,7 +29,8 @@ cargo run
 ## Current Capabilities
 
 - One-way audio streaming from one device to another
-    - Plays all output of one device on another 
+    - Plays all output of one device on another
+    - allows for one way microphone pass, but not bidirectional
 - Simple Axum-based HTTP server to start sender or receiver on request
 
 ---
